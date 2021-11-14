@@ -22,7 +22,7 @@ span {
 }
 
 span::before {
-  content: "KHONTOLS";
+  content: "Hi..";
   position: absolute;
   color: transparent;
   background-image: repeating-linear-gradient(
@@ -40,7 +40,7 @@ span::before {
 }
 
 span::after {
-  content: "KHONTOLS";
+  content: "Hi..";
   position: absolute;
   color: transparent;
   background-image: repeating-linear-gradient(
