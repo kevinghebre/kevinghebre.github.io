@@ -22,7 +22,7 @@ span {
 }
 
 span::before {
-  content: "Hi..";
+  content: "Hi.. I love U bubiey";
   position: absolute;
   color: transparent;
   background-image: repeating-linear-gradient(
@@ -40,7 +40,7 @@ span::before {
 }
 
 span::after {
-  content: "Hi..";
+  content: "Hi.. I love U bubiey";
   position: absolute;
   color: transparent;
   background-image: repeating-linear-gradient(
