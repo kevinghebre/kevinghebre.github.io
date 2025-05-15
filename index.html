@@ -30,53 +30,105 @@
       background-color: #ff69b4;
       color: white;
       border: none;
-      padding: 12px 24px;
+      padding: 14px 28px;
       font-size: 1.2rem;
-      border-radius: 25px;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      animation: fadeIn 2.5s ease-in-out;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
     }
 
     button:hover {
       background-color: #ff85c1;
+      transform: scale(1.05);
     }
 
     .message {
-      margin-top: 30px;
+      margin-top: 10px;
       font-size: 1.3rem;
-      animation: fadeIn 3.5s ease-in-out;
       color: #ffc0cb;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .hearts {
+      position: fixed;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: floatHearts 6s infinite;
+      pointer-events: none;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
+      from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 600px) {
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes floatHearts {
+      0% {
+        bottom: -20px;
+        opacity: 0;
+        transform: translateX(-50%) scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-200px) scale(1.5);
+      }
+      100% {
+        bottom: 100%;
+        opacity: 0;
+        transform: translateX(-50%) translateY(-300px) scale(0.8);
+      }
+    }
+
+    @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
       }
 
       button {
         font-size: 1rem;
-        padding: 10px 20px;
+        padding: 12px 20px;
       }
 
       .message {
         font-size: 1.1rem;
       }
     }
+
+    @media (min-width: 1024px) {
+      h1 {
+        font-size: 3rem;
+      }
+
+      .message {
+        font-size: 1.4rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>Halo selamat pagi sayangku 💖</h1>
-  <button onclick="document.querySelector('.message').style.display = 'block'">
-    Pagi juga sayang 🌞
-  </button>
-  <p class="message" style="display: none;">
-    Hii pacarmu kangen,, booleh ketemuan ga ya 🥺❤️
+  <h1>Halo selamat pagi sayangku Lisiaaa 💖</h1>
+  <button onclick="showMessage()">Click me 💌</button>
+  <p class="message" id="msg" style="display: none;">
+    Hii pacarmu kangen banget lohh... 🥺<br/>
+    Boleh ketemuan gaa? Aku janji nggak gangguin kalau kamu sibuk 😚<br/>
+    Tapi kalo belom bisa ketemu kirim pap yaa... 💕
   </p>
+
+  <div class="hearts">💖💗💞💕💘</div>
+
+  <script>
+    function showMessage() {
+      document.getElementById("msg").style.display = "block";
+    }
+  </script>
 </body>
 </html>
