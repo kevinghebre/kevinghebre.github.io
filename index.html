@@ -3,14 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
     <title>LISIA SAYANG</title>
     <style>
       body {
         background-color: #000;
-        color: #fff;
-        font-family: "Comic Sans MS", cursive;
+        color: #f5f5f5;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
         text-align: center;
-        overflow: hidden; /* Ganti dari overflow-x: hidden jadi overflow: hidden */
+        overflow: hidden;
         margin: 0;
         padding: 2rem 1rem;
         position: relative;
@@ -21,18 +32,21 @@
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: 3rem;
         color: #ff66cc;
-        animation: shake 1s infinite;
+        margin-bottom: 1.5rem;
         user-select: none;
-        margin-bottom: 1rem;
+        animation: shake 1s infinite;
+        text-shadow: 0 0 8px #ff66cc;
       }
 
       .section {
         display: none;
         margin-top: 30px;
         flex-direction: column;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
       }
 
@@ -41,26 +55,39 @@
       }
 
       button {
-        padding: 12px 25px;
-        font-size: 1.1rem;
+        padding: 14px 28px;
+        font-size: 1.15rem;
+        font-weight: 600;
+        font-family: "Montserrat", sans-serif;
         border: none;
-        border-radius: 30px;
-        background: #ff69b4;
-        color: white;
+        border-radius: 40px;
+        background: linear-gradient(45deg, #d6336c, #ff69b4);
+        color: #fff;
         cursor: pointer;
-        transition: 0.3s;
-        animation: rainbowPulse 3s infinite;
+        transition: background 0.4s ease, transform 0.3s ease,
+          box-shadow 0.4s ease;
+        box-shadow: 0 0 12px #d6336c;
+        min-width: 200px;
         user-select: none;
-        box-shadow: 0 0 8px #ff69b4;
-        min-width: 180px;
       }
 
       button:hover {
+        background: linear-gradient(45deg, #ff69b4, #d6336c);
         transform: scale(1.1);
-        background: #ff85c1;
-        box-shadow: 0 0 15px #ff85c1;
+        box-shadow: 0 0 20px #ff85c1;
       }
 
+      p.message {
+        font-size: 1.25rem;
+        /* max-width: 360px; */
+        margin: 0 auto 20px;
+        line-height: 1.5;
+        user-select: none;
+        font-weight: 400;
+        font-family: "Montserrat", sans-serif;
+        color: #ffaad1;
+        text-shadow: 0 0 4px #ff69b4;
+      }
       @keyframes shake {
         0%,
         100% {
@@ -120,14 +147,6 @@
         }
       }
 
-      p.message {
-        font-size: 1.2rem;
-        max-width: 350px;
-        margin: 0 auto 15px;
-        line-height: 1.4;
-        user-select: none;
-      }
-
       #funnyMessage {
         margin-top: 10px;
         font-size: 1.1rem;
@@ -152,15 +171,16 @@
 
       @media (max-width: 768px) {
         h1 {
-          font-size: 2rem;
+          font-size: 2.2rem;
         }
         button {
-          min-width: 140px;
+          min-width: 160px;
           font-size: 1rem;
-          padding: 10px 20px;
+          padding: 12px 22px;
+          border-radius: 30px;
         }
         p.message {
-          font-size: 1rem;
+          font-size: 1.1rem;
           max-width: 90vw;
         }
       }
@@ -175,8 +195,8 @@
 
     <div id="firstMessage" class="section">
       <p class="message">
-        Hii pacarmu kangen banget lohh... 🥺<br />
-        Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk 😚<br />
+        Hii pacarmu kangen banget lohh...🥺<br />
+        Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk😚<br />
         Tapi yaa, kalo ga bisa kirim pap yah
       </p>
       <button onclick="showOptions()">Yaudah yuk ketemuan! 😍</button>
@@ -186,7 +206,9 @@
     </div>
 
     <div id="options" class="section">
-      <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
+      <p id="promptMessage" class="message">
+        Kalau ketemuan enaknya ngapain ya? 🥰
+      </p>
 
       <button onclick="reaction('Peluk sampe lemes ya abis itu... 🤗')">
         Pergi makan 🍽️
@@ -237,7 +259,8 @@
       function showFirstMessage() {
         document.getElementById("menu").classList.remove("visible");
         document.getElementById("firstMessage").classList.add("visible");
-        document.getElementById("main-title").innerText = "Aku kangen LISIA 💕";
+        document.getElementById("main-title").innerText =
+          "Lagi ad yang nyariin LISIA nih 💕";
 
         const audio = document.querySelector("audio");
         if (audio) {
@@ -258,7 +281,7 @@
         document.getElementById("reactionMessage").textContent = "";
         document.getElementById("noMeetMessage").textContent = "";
         document.getElementById("main-title").innerText =
-          "Coba pilih nih,, kukasi opsinya... 😘";
+          "Coba pilih nih,, kukasi opsinya...😘";
 
         // Tampilkan kembali tombol dan hapus pesan lucu jika ada
         document.querySelectorAll("#options button").forEach((btn) => {
@@ -289,8 +312,13 @@
       }
 
       function reaction(message) {
+        // Ganti kalimat prompt
+        const prompt = document.getElementById("promptMessage");
+        prompt.textContent = `Yaudah ayo kita... `;
+
         document.getElementById("reactionMessage").textContent = message;
         document.getElementById("noMeetMessage").textContent = "";
+        document.getElementById("main-title").innerText = "Udah milih ya! 🎉";
 
         // Sembunyikan semua tombol opsi
         document.querySelectorAll("#options button").forEach((btn) => {
