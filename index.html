@@ -1,13 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="sty;e.css" />
-    <title>BACOT</title>
-  </head>
-  <body>
-    <span>Hi.. I love U bubiey</span>
-  </body>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Pagi Sayang</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff69b4;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    button {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      animation: fadeIn 2.5s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #ff85c1;
+    }
+
+    .message {
+      margin-top: 30px;
+      font-size: 1.3rem;
+      animation: fadeIn 3.5s ease-in-out;
+      color: #ffc0cb;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+
+      .message {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Halo selamat pagi sayangku 💖</h1>
+  <button onclick="document.querySelector('.message').style.display = 'block'">
+    Pagi juga sayang 🌞
+  </button>
+  <p class="message" style="display: none;">
+    Hii pacarmu kangen,, booleh ketemuan ga ya 🥺❤️
+  </p>
+</body>
 </html>
