@@ -5,322 +5,317 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LISIA SAYANG</title>
   <style>
-    /* Reset & dasar */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
     body {
-      background: black;
+      background-color: #000;
       color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Comic Sans MS', cursive;
       text-align: center;
-      min-height: 100vh;
       overflow-x: hidden;
-      padding: 20px;
+      margin: 0;
+      padding: 2rem 1rem;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ff66cc;
+      animation: shake 1s infinite;
       user-select: none;
+      margin-bottom: 1rem;
     }
-    h1#main-title {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      display: inline-block;
-      animation: shake 0.5s infinite alternate;
-      cursor: pointer;
-    }
-    p.message {
-      font-size: 1.3rem;
-      margin-bottom: 20px;
-      color: #ffb6c1;
-      text-shadow: 0 0 8px #ff6699;
-      animation: glow 2.5s ease-in-out infinite alternate;
-    }
-    button {
-      background: #ff3366;
-      border: none;
-      border-radius: 12px;
-      color: white;
-      font-size: 1.1rem;
-      padding: 12px 22px;
-      margin: 10px 8px;
-      cursor: pointer;
-      box-shadow: 0 0 10px #ff3366;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-    }
-    button:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #ff66aa;
-    }
-    button:active {
-      transform: scale(0.95);
-    }
+
     .section {
       display: none;
-      max-width: 400px;
-      margin: 0 auto 40px auto;
+      margin-top: 30px;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
     }
+
     .visible {
-      display: block;
+      display: flex;
     }
-    /* Animasi shake kiri kanan */
+
+    /* Update tombol agar teks rata kiri, tengah, dan kanan dalam satu tombol */
+    button {
+      padding: 12px 20px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 30px;
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      animation: rainbowPulse 3s infinite;
+      user-select: none;
+      box-shadow: 0 0 8px #ff69b4;
+      min-width: 280px;
+      display: flex;
+      justify-content: space-between; /* bikin konten kiri dan kanan berjauhan */
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Biar teks yang di dalam tombol rata tengah di bagian tengah */
+    button > span.text-center {
+      flex-grow: 1;
+      text-align: center;
+      user-select: none;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #ff85c1;
+      box-shadow: 0 0 15px #ff85c1;
+    }
+
     @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      50% { transform: translateX(6px); }
-      75% { transform: translateX(-6px); }
-      100% { transform: translateX(0); }
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-4px); }
     }
-    /* Animasi glow tulisan */
-    @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #ff6699, 0 0 20px #ff66cc;
-      }
-      to {
-        text-shadow: 0 0 30px #ff99cc, 0 0 40px #ff66aa;
-      }
+
+    @keyframes rainbowPulse {
+      0% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
+      25% { background-color: #ffa07a; box-shadow: 0 0 15px #ffa07a; }
+      50% { background-color: #ffb6c1; box-shadow: 0 0 20px #ffb6c1; }
+      75% { background-color: #da70d6; box-shadow: 0 0 15px #da70d6; }
+      100% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
     }
-    /* Bounce animasi */
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-12px); }
-    }
-    /* Emoji popup */
+
     .emoji-pop {
       position: fixed;
-      font-size: 2rem;
-      animation: floatUp 2s forwards ease-out;
+      font-size: 2.5rem;
+      animation: popFade 2s ease-out forwards;
       pointer-events: none;
       user-select: none;
       z-index: 9999;
-      filter: drop-shadow(0 0 3px #ff3399);
+      filter: drop-shadow(0 0 3px #ff66cc);
+      user-select: none;
     }
-    @keyframes floatUp {
-      0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-      100% {
-        opacity: 0;
-        transform: translateY(-100px) scale(1.6);
-      }
+
+    @keyframes popFade {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(3); opacity: 0; }
     }
-    /* Responsive */
-    @media (max-width: 600px) {
-      h1#main-title {
-        font-size: 2.4rem;
+
+    p.message {
+      font-size: 1.2rem;
+      max-width: 350px;
+      margin: 0 auto 15px;
+      line-height: 1.4;
+      user-select: none;
+    }
+
+    /* Responsif */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
       }
       button {
+        min-width: 220px;
         font-size: 1rem;
-        padding: 10px 18px;
-        margin: 8px 5px;
-      }
-      .section {
-        max-width: 90vw;
+        padding: 10px 15px;
       }
     }
-    @media (min-width: 601px) and (max-width: 1024px) {
-      h1#main-title {
-        font-size: 2.8rem;
-      }
-      button {
-        font-size: 1.05rem;
-      }
-      .section {
-        max-width: 450px;
-      }
-    }
-    /* Fun message styling */
+
+    /* Pesan lucu baru setelah klik opsi */
     #funMessage {
-      margin-top: 20px;
-      min-height: 40px;
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #ff55cc;
+      font-size: 1.5rem;
+      color: #ff77cc;
+      margin-top: 25px;
       animation: bounce 1.5s infinite;
-      text-shadow: 0 0 10px #ff33aa;
+      user-select: none;
     }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
   </style>
 </head>
 <body>
 
-  <h1 id="main-title">LISIA SAYANG</h1>
+  <h1 id="main-title">LISIA SAYANG 💖</h1>
 
-  <!-- MENU AWAL -->
+  <!-- Menu awal -->
   <div id="menu" class="section visible">
-    <p class="message">Halo selamat pagi sayangku 🌞💖</p>
-    <button onclick="startConversation()">Pagi juga sayang</button>
+    <button onclick="showFirstMessage()">Click me 💌</button>
   </div>
 
-  <!-- PESAN PERTAMA -->
+  <!-- Pesan kangen -->
   <div id="firstMessage" class="section">
     <p class="message">
       Hii pacarmu kangen banget lohh... 🥺<br/>
       Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk 😚<br/>
       Tapi yaa, kalo ga bisa kirim pap yah
     </p>
-    <button onclick="showOptions()">Yaudah yuk ketemuan</button>
+    <button onclick="showOptions()">Yaudah yuk ketemuan! 😍</button>
     <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
   </div>
 
-  <!-- OPTIONS KETEMUAN -->
+  <!-- Pilihan kegiatan -->
   <div id="options" class="section">
     <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
-    <div id="optionsButtons">
-      <button onclick="reaction('Peluk sampe lemes 🤗')">Pergi makan 🍽️</button>
-      <button onclick="reaction('Nonton film romantis 🎥')">Nonton film aja 🎬</button>
-      <button onclick="reaction('Muter-muter liat ketapang 🌴')">Ah muter-muter liat ketapang aja deh 🌴</button>
-      <button onclick="reaction('Makan es krim 🍦')">Ehh ayo makan es krim 🍦</button>
+    <div id="optionsButtons" style="display: flex; flex-direction: column; gap: 15px;">
+      <button onclick="reaction('Peluk sampe lemes 🤗')">
+        <span style="flex-shrink: 0;">🍽️</span>
+        <span class="text-center">Pergi makan</span>
+        <span style="flex-shrink: 0;">🤗</span>
+      </button>
+      <button onclick="reaction('Nonton film romantis 🎥')">
+        <span style="flex-shrink: 0;">🎬</span>
+        <span class="text-center">Nonton film aja</span>
+        <span style="flex-shrink: 0;">🎥</span>
+      </button>
+      <button onclick="reaction('Muter-muter liat ketapang 🌴')">
+        <span style="flex-shrink: 0;">🌴</span>
+        <span class="text-center">Ah muter-muter liat ketapang aja deh</span>
+        <span style="flex-shrink: 0;">🌴</span>
+      </button>
+      <button onclick="reaction('Ayo makan es krim 🍦')">
+        <span style="flex-shrink: 0;">🍦</span>
+        <span class="text-center">ehh ayo makan es krim</span>
+        <span style="flex-shrink: 0;">🍦</span>
+      </button>
+      <button onclick="noMeet()">
+        <span style="flex-shrink: 0;">😤</span>
+        <span class="text-center">ga jadi ketemu lah lagi BETE</span>
+        <span style="flex-shrink: 0;">😤</span>
+      </button>
+      <button onclick="backToFirstMessage()">
+        <span style="flex-shrink: 0;">🔙</span>
+        <span class="text-center">Balik ke pesan sebelumnya</span>
+        <span style="flex-shrink: 0;">🔙</span>
+      </button>
     </div>
+    <p id="reactionMessage" style="margin-top:20px; font-size:1.2rem; color:#ff69b4; min-height:40px;"></p>
+    <p id="noMeetMessage" style="margin-top:20px; font-size:1.2rem; color:#ff5555; min-height:40px;"></p>
   </div>
 
-  <!-- PESAN FUN DAN ANIMASI -->
-  <div id="funMessage" class="section"></div>
+  <!-- Pesan lucu baru yang muncul setelah klik opsi -->
+  <p id="funMessage"></p>
 
-  <!-- AUDIO -->
-  <audio id="bg-music" src="https://cdn.pixabay.com/download/audio/2021/11/26/audio_3b6ee6d450.mp3?filename=happy-guitar-11262.mp3" loop></audio>
+  <!-- Musik pengiring (ganti src dengan file musik kamu) -->
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg" />
+    Browsermu tidak mendukung pemutar musik.
+  </audio>
 
   <script>
-    const title = document.getElementById('main-title');
-    const menu = document.getElementById('menu');
-    const firstMessage = document.getElementById('firstMessage');
-    const options = document.getElementById('options');
-    const funMsg = document.getElementById('funMessage');
-    const bgMusic = document.getElementById('bg-music');
-
-    // Shake effect toggle on title click - just change text
-    title.addEventListener('click', () => {
-      if(title.innerText === "LISIA SAYANG") {
-        title.innerText = "Sayangku sayang banget!";
-      } else {
-        title.innerText = "LISIA SAYANG";
-      }
-    });
-
-    // Mulai musik saat user klik pertama kali
-    function startMusic() {
-      if(bgMusic.paused) {
-        bgMusic.volume = 0.2;
-        bgMusic.play().catch(()=>{});
-      }
-    }
-
-    // Start percakapan
-    function startConversation() {
-      startMusic();
-      menu.classList.remove('visible');
-      firstMessage.classList.add('visible');
+    function showFirstMessage() {
+      document.getElementById('menu').classList.remove('visible');
+      document.getElementById('firstMessage').classList.add('visible');
+      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
       clearFunMessage();
     }
 
-    // Kembali ke menu utama
-    function backToMenu() {
-      // Sembunyikan semua section dulu
-      menu.classList.add('visible');
-      firstMessage.classList.remove('visible');
-      options.classList.remove('visible');
-      clearFunMessage();
-      title.innerText = "LISIA SAYANG";
-
-      // Hapus emoji popup kalau ada
-      clearAllEmoji();
-    }
-
-    // Tampilkan opsi ketemuan
     function showOptions() {
-      firstMessage.classList.remove('visible');
-      options.classList.add('visible');
+      document.getElementById('firstMessage').classList.remove('visible');
+      document.getElementById('options').classList.add('visible');
+      document.getElementById('reactionMessage').textContent = '';
+      document.getElementById('noMeetMessage').textContent = '';
+      document.getElementById('funMessage').textContent = '';
+      document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
+      // Tampilkan tombol opsi jika pernah disembunyikan
+      document.getElementById('optionsButtons').style.display = 'flex';
+      document.getElementById('optionsButtons').style.flexDirection = 'column';
+      document.getElementById('optionsButtons').style.gap = '15px';
+    }
+
+    function backToMenu() {
+      document.getElementById('firstMessage').classList.remove('visible');
+      document.getElementById('options').classList.remove('visible');
+      document.getElementById('menu').classList.add('visible');
+      document.getElementById('main-title').innerText = "LISIA SAYANG 💖";
       clearFunMessage();
     }
 
-    // Reaksi pilihan opsi ketemuan
-    function reaction(text) {
+    function backToFirstMessage() {
+      document.getElementById('options').classList.remove('visible');
+      document.getElementById('firstMessage').classList.add('visible');
+      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
       clearFunMessage();
-      funMsg.textContent = text;
-      funMsg.style.color = "#ff55cc";
-      funMsg.style.fontWeight = "bold";
-      funMsg.style.fontSize = "1.3rem";
-      funMsg.style.animation = "bounce 1.5s infinite";
+    }
 
-      // Hide opsi setelah klik
+    // Menampilkan pesan pilihan dan animasi emoji pop
+    function reaction(message) {
+      const reactionMsg = document.getElementById('reactionMessage');
+      const noMeetMsg = document.getElementById('noMeetMessage');
+      reactionMsg.textContent = message;
+      noMeetMsg.textContent = '';
+      createMultipleEmojiPop(20);
+
+      // Hide options buttons after click
       document.getElementById('optionsButtons').style.display = 'none';
 
-      // Mulai animasi emoji nonstop lucu
-      startEmojiPop();
-
-      // Hapus pilihan agar tidak bisa diklik lagi
-      const optsBtn = document.getElementById('optionsButtons');
-      optsBtn.style.pointerEvents = 'none';
+      // Tampilkan pesan lucu penuh animasi setelah klik opsi
+      showFunMessage();
     }
 
-    // Fungsi animasi emoji nonstop lucu
-    let emojiInterval = null;
-    function startEmojiPop() {
-      if(emojiInterval) clearInterval(emojiInterval);
-      emojiInterval = setInterval(() => {
-        const emojis = ["🥳","💖","🎉","🌈","😘","😍","💐","✨","🎈","😻","🦄","🤗","🍦","🍰"];
-        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-        const span = document.createElement('span');
-        span.className = 'emoji-pop';
-        span.textContent = emoji;
-        span.style.left = Math.random() * window.innerWidth + "px";
-        span.style.top = Math.random() * window.innerHeight + "px";
-        document.body.appendChild(span);
-        setTimeout(() => {
-          span.remove();
-        }, 2000);
-      }, 250);
+    // Fungsi untuk tombol "ga jadi ketemu"
+    function noMeet() {
+      const noMeetMsg = document.getElementById('noMeetMessage');
+      const reactionMsg = document.getElementById('reactionMessage');
+      noMeetMsg.textContent = "woi jangan gitulah pacar lagi kangen nih...";
+      reactionMsg.textContent = '';
+      createMultipleEmojiPop(25);
+
+      // Hide options buttons after click
+      document.getElementById('optionsButtons').style.display = 'none';
+
+      // Tampilkan pesan lucu penuh animasi setelah klik opsi
+      showFunMessage();
     }
 
-    // Hapus pesan fun dan animasi
+    // Fungsi menampilkan pesan lucu dan animasi nonstop ramai
+    function showFunMessage() {
+      const funMsg = document.getElementById('funMessage');
+      funMsg.textContent = "Yayyy! Senangnya bisa ketemu kamu! 🥳💖🎉🌈 Semoga harimu penuh cinta dan tawa! 😘";
+
+      // Animasi emoji pop super ramai nonstop setiap 400ms
+      if(window.funEmojiInterval) clearInterval(window.funEmojiInterval);
+      window.funEmojiInterval = setInterval(createEmojiPop, 400);
+    }
+
     function clearFunMessage() {
+      const funMsg = document.getElementById('funMessage');
       funMsg.textContent = "";
-      funMsg.style.animation = "";
-      if(emojiInterval) {
-        clearInterval(emojiInterval);
-        emojiInterval = null;
+      if(window.funEmojiInterval) {
+        clearInterval(window.funEmojiInterval);
+        window.funEmojiInterval = null;
       }
-      clearAllEmoji();
-      document.getElementById('optionsButtons').style.display = 'block';
-      document.getElementById('optionsButtons').style.pointerEvents = 'auto';
     }
 
-    // Bersihkan semua emoji popup
-    function clearAllEmoji() {
-      document.querySelectorAll('.emoji-pop').forEach(el => el.remove());
+    // Membuat emoji pop sekali
+    function createEmojiPop() {
+      const emojis = ["🥳","💖","🎉","🌈","😘","😍","💐","✨","🎈","😻","🦄"];
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      const span = document.createElement('span');
+      span.className = 'emoji-pop';
+      span.textContent = emoji;
+      // Posisi random di layar
+      span.style.left = Math.random() * window.innerWidth + "px";
+      span.style.top = Math.random() * window.innerHeight + "px";
+      document.body.appendChild(span);
+
+      // Hapus setelah animasi selesai (2 detik)
+      setTimeout(() => {
+        span.remove();
+      }, 2000);
     }
 
-    // Fungsi baru untuk tombol "Ehh ga jadi deh, mau yang lain aja 🙈"
-    function forceMeet() {
-      // Sembunyikan semua section
-      menu.classList.remove('visible');
-      firstMessage.classList.remove('visible');
-      options.classList.remove('visible');
-
-      // Ganti judul
-      title.innerText = "WOII aku maksa mau ketemuan njir.. 😜";
-
-      // Tampilkan pesan maksa di funMessage
-      funMsg.textContent = "Bodo amat, minimal video call aku sekarang!!! 📱🥰💻";
-      funMsg.style.color = "#ff3399";
-      funMsg.style.fontWeight = "bold";
-      funMsg.style.fontSize = "1.6rem";
-      funMsg.style.animation = "bounce 1.5s infinite";
-
-      // Mulai emoji pop nonstop dengan emoji lucu dan ramai
-      if (emojiInterval) clearInterval(emojiInterval);
-      emojiInterval = setInterval(() => {
-        const emojis = ["🥰","🤣","😝","💻","📱","😜","😘","🤪","🎉","💖","🌟","🤩"];
-        const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-        const span = document.createElement('span');
-        span.className = 'emoji-pop';
-        span.textContent = emoji;
-        span.style.left = Math.random() * window.innerWidth + "px";
-        span.style.top = Math.random() * window.innerHeight + "px";
-        document.body.appendChild(span);
-        setTimeout(() => span.remove(), 2000);
-      }, 250);
-
-      // Putar musik kalau belum jalan
-      startMusic();
+    // Membuat banyak emoji pop sekaligus
+    function createMultipleEmojiPop(count) {
+      for(let i=0; i<count; i++) {
+        setTimeout(createEmojiPop, i * 50);
+      }
     }
   </script>
 </body>
