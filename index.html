@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LISIA SAYANG</title>
   <style>
     body {
@@ -13,12 +13,16 @@
       overflow-x: hidden;
       margin: 0;
       padding: 2rem 1rem;
+      position: relative;
+      height: 100vh;
     }
 
     h1 {
       font-size: 2.5rem;
       color: #ff66cc;
       animation: shake 1s infinite;
+      user-select: none;
+      margin-bottom: 1rem;
     }
 
     .menu, .options, .activity {
@@ -43,11 +47,14 @@
       cursor: pointer;
       transition: 0.3s;
       animation: rainbowPulse 3s infinite;
+      user-select: none;
+      box-shadow: 0 0 8px #ff69b4;
     }
 
     button:hover {
-      transform: scale(1.05);
+      transform: scale(1.1);
       background: #ff85c1;
+      box-shadow: 0 0 15px #ff85c1;
     }
 
     @keyframes shake {
@@ -58,23 +65,26 @@
     }
 
     @keyframes rainbowPulse {
-      0% { background-color: #ff69b4; }
-      25% { background-color: #ffa07a; }
-      50% { background-color: #ffb6c1; }
-      75% { background-color: #da70d6; }
-      100% { background-color: #ff69b4; }
+      0% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
+      25% { background-color: #ffa07a; box-shadow: 0 0 15px #ffa07a; }
+      50% { background-color: #ffb6c1; box-shadow: 0 0 20px #ffb6c1; }
+      75% { background-color: #da70d6; box-shadow: 0 0 15px #da70d6; }
+      100% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
     }
 
     .emoji-pop {
-      position: absolute;
-      font-size: 2rem;
-      animation: popFade 1.8s ease-out forwards;
+      position: fixed;
+      font-size: 2.5rem;
+      animation: popFade 2s ease-out forwards;
       pointer-events: none;
+      user-select: none;
+      z-index: 9999;
+      filter: drop-shadow(0 0 3px #ff66cc);
     }
 
     @keyframes popFade {
       0% { transform: scale(0); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
+      100% { transform: scale(3); opacity: 0; }
     }
   </style>
 </head>
@@ -102,7 +112,7 @@
   </div>
 
   <audio autoplay loop>
-    <source src="music.mp3" type="audio/mpeg">
+    <source src="music.mp3" type="audio/mpeg" />
     Musik tidak didukung.
   </audio>
 
@@ -133,26 +143,29 @@
 
     function reaction(message) {
       alert("Yeay! " + message);
-      randomEmojiPop();
+      createMultipleEmojiPop(15);
     }
 
-    function randomEmojiPop() {
-      const emojis = ['💖', '💋', '🌸', '🥰', '😘', '💘'];
-      for (let i = 0; i < 10; i++) {
-        setTimeout(() => {
-          const span = document.createElement('span');
-          span.className = 'emoji-pop';
-          span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-          span.style.left = Math.random() * 100 + 'vw';
-          span.style.top = Math.random() * 100 + 'vh';
-          document.body.appendChild(span);
-          setTimeout(() => span.remove(), 2000);
-        }, i * 100);
+    function createEmojiPop() {
+      const emojis = ['💖', '💋', '🌸', '🥰', '😘', '💘', '💕', '💞'];
+      const span = document.createElement('span');
+      span.className = 'emoji-pop';
+      span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      span.style.left = Math.random() * window.innerWidth + 'px';
+      span.style.top = Math.random() * window.innerHeight + 'px';
+      document.body.appendChild(span);
+      setTimeout(() => span.remove(), 2000);
+    }
+
+    function createMultipleEmojiPop(count) {
+      for(let i = 0; i < count; i++) {
+        setTimeout(createEmojiPop, i * 100);
       }
     }
 
-    // Optional: kasih emoji pop tiap detik juga biar makin ramai
-    setInterval(randomEmojiPop, 4000);
+    // Animasi nonstop: emoji muncul terus-menerus tanpa berhenti
+    setInterval(createEmojiPop, 300);
+
   </script>
 </body>
 </html>
