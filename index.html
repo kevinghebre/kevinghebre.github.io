@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>PROMO TAS</title>
+  <title>LISIA SAYANG</title>
   <style>
     body {
       background-color: #000;
       color: #fff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       margin: 0;
       padding: 0;
       display: flex;
@@ -21,78 +21,101 @@
     }
 
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-      color: #ff69b4;
-      animation: fadeSlideIn 1.5s ease-in-out;
+      font-size: 2.8rem;
+      color: #ff66cc;
+      animation: spinText 5s linear infinite, glow 2s ease-in-out infinite alternate;
     }
 
     button {
       background-color: #ff69b4;
       color: white;
       border: none;
-      padding: 14px 28px;
-      font-size: 1.2rem;
-      border-radius: 30px;
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      animation: pulse 2s infinite;
-      margin-bottom: 20px;
+      margin: 8px;
+      animation: rainbowPulse 3s infinite;
     }
 
     button:hover {
       background-color: #ff85c1;
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
     .message {
-      margin-top: 10px;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: #ffc0cb;
       animation: fadeSlideIn 1s ease-in-out;
       display: none;
+      margin-top: 20px;
     }
 
-    .hearts {
-      position: fixed;
-      bottom: -20px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 2rem;
-      animation: floatHearts 6s infinite;
-      pointer-events: none;
+    .extra-buttons {
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      animation: fadeSlideIn 1s ease-in-out;
+    }
+
+    /* Animasi tambahan */
+    .heartRain span,
+    .butterflies span,
+    .sparkles span {
+      position: absolute;
+      animation: floatUp 10s linear infinite;
+      opacity: 0.8;
+    }
+
+    .heartRain span {
+      color: #ff66cc;
+      font-size: 24px;
+    }
+
+    .butterflies span {
+      font-size: 20px;
+    }
+
+    .sparkles span {
+      color: gold;
+      font-size: 16px;
+    }
+
+    @keyframes spinText {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+      to { text-shadow: 0 0 20px #ff85c1, 0 0 30px #ff85c1; }
     }
 
     @keyframes fadeSlideIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    @keyframes rainbowPulse {
+      0% { background-color: #ff69b4; }
+      25% { background-color: #ffa07a; }
+      50% { background-color: #ffb6c1; }
+      75% { background-color: #da70d6; }
+      100% { background-color: #ff69b4; }
     }
 
-    @keyframes floatHearts {
+    @keyframes floatUp {
       0% {
-        bottom: -20px;
+        transform: translateY(100vh) scale(1);
         opacity: 0;
-        transform: translateX(-50%) scale(1);
       }
       50% {
         opacity: 1;
-        transform: translateX(-50%) translateY(-200px) scale(1.5);
       }
       100% {
-        bottom: 100%;
+        transform: translateY(-10vh) scale(1.2);
         opacity: 0;
-        transform: translateX(-50%) translateY(-300px) scale(0.8);
       }
     }
 
@@ -101,46 +124,67 @@
         font-size: 2rem;
       }
 
+      .message {
+        font-size: 1rem;
+      }
+
       button {
         font-size: 1rem;
-        padding: 12px 20px;
-      }
-
-      .message {
-        font-size: 1.1rem;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      h1 {
-        font-size: 3rem;
-      }
-
-      .message {
-        font-size: 1.4rem;
       }
     }
   </style>
 </head>
 <body>
-  <h1 id="title">Halo selamat pagi sayangku 💖</h1>
+  <h1 id="title">LISIA SAYANG 💖</h1>
   <button onclick="showMessage()" id="pagiBtn">Click me 💌</button>
+
   <p class="message" id="msg">
     Hii pacarmu kangen banget lohh... 🥺<br/>
-    Mau ketemuan nggak? Lagi pengen banget ketemu nih... 😚<br/>
-    Tapi yaa, ga bisa ketemu, kirim PAP yaa... 💕
+    Boleh ketemu hari ini? 💕
   </p>
 
-  <div class="hearts">💖💗💞💕💘</div>
+  <div class="extra-buttons" id="moreBtns">
+    <button onclick="alert('Aku juga kangen bangettt 😭')">Aku juga kangen</button>
+    <button onclick="alert('🤗 Peluk virtual dikirim buat kamu!')">Peluk virtual 🤗</button>
+    <button onclick="alert('Nanti kita liat foto kenangan yaa 📸')">Lihat kenangan kita</button>
+  </div>
+
+  <!-- Hati berjatuhan -->
+  <div class="heartRain">
+    <span>💖</span><span>💘</span><span>💞</span><span>💕</span><span>💓</span><span>💗</span>
+  </div>
+
+  <!-- Kupu-kupu -->
+  <div class="butterflies">
+    <span>🦋</span><span>🦋</span><span>🦋</span>
+  </div>
+
+  <!-- Sparkle -->
+  <div class="sparkles">
+    <span>✨</span><span>💫</span><span>🌟</span><span>🌈</span>
+  </div>
 
   <script>
     function showMessage() {
       document.getElementById("title").style.display = "none";
       document.getElementById("pagiBtn").style.display = "none";
-      const msg = document.getElementById("msg");
-      msg.style.display = "block";
-      msg.style.animation = "fadeSlideIn 1s ease-in-out";
+      document.getElementById("msg").style.display = "block";
+      document.getElementById("moreBtns").style.display = "flex";
     }
+
+    // Mengacak posisi emoji animasi
+    function animateEmoji(selector) {
+      const spans = document.querySelectorAll(`${selector} span`);
+      spans.forEach(span => {
+        span.style.left = Math.random() * 100 + 'vw';
+        span.style.animationDuration = (5 + Math.random() * 5) + 's';
+        span.style.fontSize = (16 + Math.random() * 24) + 'px';
+      });
+    }
+
+    animateEmoji('.heartRain');
+    animateEmoji('.butterflies');
+    animateEmoji('.sparkles');
   </script>
 </body>
 </html>
