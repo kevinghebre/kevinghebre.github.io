@@ -25,7 +25,7 @@
       margin-bottom: 1rem;
     }
 
-    .menu, .options, .activity {
+    .section {
       display: none;
       margin-top: 30px;
       flex-direction: column;
@@ -86,29 +86,41 @@
       0% { transform: scale(0); opacity: 1; }
       100% { transform: scale(3); opacity: 0; }
     }
+
+    p.message {
+      font-size: 1.2rem;
+      max-width: 350px;
+      margin: 0 auto 15px;
+      line-height: 1.4;
+      user-select: none;
+    }
+
   </style>
 </head>
 <body>
 
   <h1 id="main-title">LISIA SAYANG 💖</h1>
 
-  <div id="menu" class="menu visible">
-    <button onclick="showOptions()">Click me 💌</button>
+  <div id="menu" class="section visible">
+    <button onclick="showFirstMessage()">Click me 💌</button>
   </div>
 
-  <div id="options" class="options">
-    <p style="font-size: 1.2rem;">Aku lagi kangen banget nih... boleh ketemuan ga ya? 😢</p>
-    <button onclick="showActivities()">Yuk ketemuan! 😍</button>
+  <div id="firstMessage" class="section">
+    <p class="message">
+      Hii pacarmu kangen banget lohh... 🥺<br/>
+      Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk 😚<br/>
+      Tapi yaa, kalo ga bisa kirim pap yah
+    </p>
+    <button onclick="showOptions()">Yaudah yuk ketemuan! 😍</button>
     <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
   </div>
 
-  <div id="activities" class="activity">
-    <p style="font-size: 1.2rem;">Kalau ketemuan enaknya ngapain ya? 🥰</p>
-    <button onclick="reaction('Peluk sampe lemes 🤗')">Peluk sampe lemes 🤗</button>
-    <button onclick="reaction('Makan es krim bareng 🍦')">Makan es krim bareng 🍦</button>
-    <button onclick="reaction('Main kartu cinta 💌')">Main kartu cinta 💌</button>
-    <button onclick="reaction('Tiduran bareng sambil denger lagu 🛏️🎶')">Tiduran bareng sambil denger lagu 🛏️🎶</button>
-    <button onclick="backToOptions()">🔙 Balik ke pilihan sebelumnya</button>
+  <div id="options" class="section">
+    <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
+    <button onclick="reaction('Peluk sampe lemes 🤗')">Pergi makan 🍽️</button>
+    <button onclick="reaction('Nonton film romantis 🎥')">Nonton film aja 🎬</button>
+    <button onclick="reaction('Muter-muter liat ketapang 🌴')">Ah muter-muter liat ketapang aja deh 🌴</button>
+    <button onclick="backToFirstMessage()">🔙 Balik ke pesan sebelumnya</button>
   </div>
 
   <audio autoplay loop>
@@ -117,28 +129,28 @@
   </audio>
 
   <script>
-    function showOptions() {
+    function showFirstMessage() {
       document.getElementById('menu').classList.remove('visible');
-      document.getElementById('options').classList.add('visible');
+      document.getElementById('firstMessage').classList.add('visible');
       document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
     }
 
-    function showActivities() {
-      document.getElementById('options').classList.remove('visible');
-      document.getElementById('activities').classList.add('visible');
+    function showOptions() {
+      document.getElementById('firstMessage').classList.remove('visible');
+      document.getElementById('options').classList.add('visible');
       document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
     }
 
-    function backToOptions() {
-      document.getElementById('activities').classList.remove('visible');
-      document.getElementById('options').classList.add('visible');
-      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
-    }
-
     function backToMenu() {
-      document.getElementById('options').classList.remove('visible');
+      document.getElementById('firstMessage').classList.remove('visible');
       document.getElementById('menu').classList.add('visible');
       document.getElementById('main-title').innerText = "LISIA SAYANG 💖";
+    }
+
+    function backToFirstMessage() {
+      document.getElementById('options').classList.remove('visible');
+      document.getElementById('firstMessage').classList.add('visible');
+      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
     }
 
     function reaction(message) {
