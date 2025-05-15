@@ -53,15 +53,13 @@
       user-select: none;
       box-shadow: 0 0 8px #ff69b4;
       min-width: 280px;
-
       display: flex;
       align-items: center;
-      justify-content: center; /* teks dan emoji di tengah secara horizontal */
+      justify-content: center;
       gap: 10px;
       position: relative;
     }
 
-    /* Letakkan emoji kiri dan kanan absolute supaya teks di tengah tetap centered */
     button > span:first-child {
       position: absolute;
       left: 15px;
@@ -74,12 +72,11 @@
       flex-shrink: 0;
     }
 
-    /* Teks di tengah tetap flex-grow agar tidak tergeser */
     button > span.text-center {
       flex-grow: 1;
       text-align: center;
       user-select: none;
-      pointer-events: none; /* agar klik tidak ke emoji */
+      pointer-events: none;
     }
 
     button:hover {
@@ -111,7 +108,6 @@
       user-select: none;
       z-index: 9999;
       filter: drop-shadow(0 0 3px #ff66cc);
-      user-select: none;
     }
 
     @keyframes popFade {
@@ -127,7 +123,6 @@
       user-select: none;
     }
 
-    /* Responsif */
     @media (max-width: 768px) {
       h1 {
         font-size: 2rem;
@@ -139,7 +134,6 @@
       }
     }
 
-    /* Pesan lucu baru setelah klik opsi */
     #funMessage {
       font-size: 1.5rem;
       color: #ff77cc;
@@ -158,12 +152,10 @@
 
   <h1 id="main-title">LISIA SAYANG 💖</h1>
 
-  <!-- Menu awal -->
   <div id="menu" class="section visible">
     <button onclick="showFirstMessage()">Click me 💌</button>
   </div>
 
-  <!-- Pesan kangen -->
   <div id="firstMessage" class="section">
     <p class="message">
       Hii pacarmu kangen banget lohh... 🥺<br/>
@@ -174,7 +166,6 @@
     <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
   </div>
 
-  <!-- Pilihan kegiatan -->
   <div id="options" class="section">
     <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
     <div id="optionsButtons" style="display: flex; flex-direction: column; gap: 15px;">
@@ -213,10 +204,8 @@
     <p id="noMeetMessage" style="margin-top:20px; font-size:1.2rem; color:#ff5555; min-height:40px;"></p>
   </div>
 
-  <!-- Pesan lucu baru yang muncul setelah klik opsi -->
   <p id="funMessage"></p>
 
-  <!-- Musik pengiring (muted supaya autoplay jalan di browser modern) -->
   <audio autoplay loop muted>
     <source src="music.mp3" type="audio/mpeg" />
     Browsermu tidak mendukung pemutar musik.
@@ -237,9 +226,6 @@
       document.getElementById('noMeetMessage').textContent = '';
       document.getElementById('funMessage').textContent = '';
       document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
-      document.getElementById('optionsButtons').style.display = 'flex';
-      document.getElementById('optionsButtons').style.flexDirection = 'column';
-      document.getElementById('optionsButtons').style.gap = '15px';
     }
 
     function backToMenu() {
@@ -258,27 +244,21 @@
     }
 
     function reaction(message) {
-      const reactionMsg = document.getElementById('reactionMessage');
-      const noMeetMsg = document.getElementById('noMeetMessage');
-      reactionMsg.textContent = message;
-      noMeetMsg.textContent = '';
+      document.getElementById('reactionMessage').textContent = message;
+      document.getElementById('noMeetMessage').textContent = '';
       showFunMessage(randomFunMessage());
-      // Bisa ditambah efek emoji pop
       createEmojiPop();
     }
 
     function noMeet() {
-      const noMeetMsg = document.getElementById('noMeetMessage');
-      const reactionMsg = document.getElementById('reactionMessage');
-      noMeetMsg.textContent = "Yahhh, nanti aja yaa, aku sedih nih 😢";
-      reactionMsg.textContent = '';
+      document.getElementById('noMeetMessage').textContent = "Yahhh, nanti aja yaa, aku sedih nih 😢";
+      document.getElementById('reactionMessage').textContent = '';
       showFunMessage(randomSadMessage());
       createEmojiPop('😢');
     }
 
     function showFunMessage(text) {
-      const funMsg = document.getElementById('funMessage');
-      funMsg.textContent = text;
+      document.getElementById('funMessage').textContent = text;
     }
 
     function clearFunMessage() {
@@ -309,23 +289,18 @@
       return msgs[Math.floor(Math.random() * msgs.length)];
     }
 
-    // Membuat emoji pop yang muncul di posisi random di layar
     function createEmojiPop(customEmoji) {
       const emoji = customEmoji || "💖";
       const pop = document.createElement('div');
       pop.className = 'emoji-pop';
       pop.textContent = emoji;
-      const x = Math.random() * (window.innerWidth - 50) + 25;
-      const y = Math.random() * (window.innerHeight - 100) + 50;
-      pop.style.left = x + 'px';
-      pop.style.top = y + 'px';
-
+      const x = Math.random() * (window.innerWidth - 50);
+      const y = Math.random() * (window.innerHeight - 50);
+      pop.style.left = `${x}px`;
+      pop.style.top = `${y}px`;
       document.body.appendChild(pop);
-      setTimeout(() => {
-        pop.remove();
-      }, 2000);
+      setTimeout(() => document.body.removeChild(pop), 2000);
     }
   </script>
-
 </body>
 </html>
