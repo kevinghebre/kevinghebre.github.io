@@ -1,100 +1,60 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>LISIA SAYANG</title>
   <style>
     body {
       background-color: #000;
       color: #fff;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
+      font-family: 'Comic Sans MS', cursive;
       text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 2rem 1rem;
     }
 
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.5rem;
       color: #ff66cc;
-      animation: spinText 5s linear infinite, glow 2s ease-in-out infinite alternate;
+      animation: shake 1s infinite;
+    }
+
+    .menu, .options, .activity {
+      display: none;
+      margin-top: 30px;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .visible {
+      display: flex;
     }
 
     button {
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      padding: 14px 26px;
+      padding: 12px 20px;
       font-size: 1.1rem;
-      border-radius: 50px;
+      border: none;
+      border-radius: 30px;
+      background: #ff69b4;
+      color: white;
       cursor: pointer;
-      margin: 8px;
+      transition: 0.3s;
       animation: rainbowPulse 3s infinite;
     }
 
     button:hover {
-      background-color: #ff85c1;
-      transform: scale(1.08);
+      transform: scale(1.05);
+      background: #ff85c1;
     }
 
-    .message {
-      font-size: 1.2rem;
-      color: #ffc0cb;
-      animation: fadeSlideIn 1s ease-in-out;
-      display: none;
-      margin-top: 20px;
-    }
-
-    .extra-buttons {
-      display: none;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-      animation: fadeSlideIn 1s ease-in-out;
-    }
-
-    /* Animasi tambahan */
-    .heartRain span,
-    .butterflies span,
-    .sparkles span {
-      position: absolute;
-      animation: floatUp 10s linear infinite;
-      opacity: 0.8;
-    }
-
-    .heartRain span {
-      color: #ff66cc;
-      font-size: 24px;
-    }
-
-    .butterflies span {
-      font-size: 20px;
-    }
-
-    .sparkles span {
-      color: gold;
-      font-size: 16px;
-    }
-
-    @keyframes spinText {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
-      to { text-shadow: 0 0 20px #ff85c1, 0 0 30px #ff85c1; }
-    }
-
-    @keyframes fadeSlideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      50% { transform: translateX(3px); }
+      75% { transform: translateX(-3px); }
     }
 
     @keyframes rainbowPulse {
@@ -105,86 +65,94 @@
       100% { background-color: #ff69b4; }
     }
 
-    @keyframes floatUp {
-      0% {
-        transform: translateY(100vh) scale(1);
-        opacity: 0;
-      }
-      50% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-10vh) scale(1.2);
-        opacity: 0;
-      }
+    .emoji-pop {
+      position: absolute;
+      font-size: 2rem;
+      animation: popFade 1.8s ease-out forwards;
+      pointer-events: none;
     }
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      .message {
-        font-size: 1rem;
-      }
-
-      button {
-        font-size: 1rem;
-      }
+    @keyframes popFade {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(2); opacity: 0; }
     }
   </style>
 </head>
 <body>
-  <h1 id="title">LISIA SAYANG 💖</h1>
-  <button onclick="showMessage()" id="pagiBtn">Click me 💌</button>
 
-  <p class="message" id="msg">
-    Hii pacarmu kangen banget lohh... 🥺<br/>
-    Boleh ketemu hari ini? 💕
-  </p>
+  <h1 id="main-title">LISIA SAYANG 💖</h1>
 
-  <div class="extra-buttons" id="moreBtns">
-    <button onclick="alert('Aku juga kangen bangettt 😭')">Aku juga kangen</button>
-    <button onclick="alert('🤗 Peluk virtual dikirim buat kamu!')">Peluk virtual 🤗</button>
-    <button onclick="alert('Nanti kita liat foto kenangan yaa 📸')">Lihat kenangan kita</button>
+  <div id="menu" class="menu visible">
+    <button onclick="showOptions()">Click me 💌</button>
   </div>
 
-  <!-- Hati berjatuhan -->
-  <div class="heartRain">
-    <span>💖</span><span>💘</span><span>💞</span><span>💕</span><span>💓</span><span>💗</span>
+  <div id="options" class="options">
+    <p style="font-size: 1.2rem;">Aku lagi kangen banget nih... boleh ketemuan ga ya? 😢</p>
+    <button onclick="showActivities()">Yuk ketemuan! 😍</button>
+    <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
   </div>
 
-  <!-- Kupu-kupu -->
-  <div class="butterflies">
-    <span>🦋</span><span>🦋</span><span>🦋</span>
+  <div id="activities" class="activity">
+    <p style="font-size: 1.2rem;">Kalau ketemuan enaknya ngapain ya? 🥰</p>
+    <button onclick="reaction('Peluk sampe lemes 🤗')">Peluk sampe lemes 🤗</button>
+    <button onclick="reaction('Makan es krim bareng 🍦')">Makan es krim bareng 🍦</button>
+    <button onclick="reaction('Main kartu cinta 💌')">Main kartu cinta 💌</button>
+    <button onclick="reaction('Tiduran bareng sambil denger lagu 🛏️🎶')">Tiduran bareng sambil denger lagu 🛏️🎶</button>
+    <button onclick="backToOptions()">🔙 Balik ke pilihan sebelumnya</button>
   </div>
 
-  <!-- Sparkle -->
-  <div class="sparkles">
-    <span>✨</span><span>💫</span><span>🌟</span><span>🌈</span>
-  </div>
+  <audio autoplay loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Musik tidak didukung.
+  </audio>
 
   <script>
-    function showMessage() {
-      document.getElementById("title").style.display = "none";
-      document.getElementById("pagiBtn").style.display = "none";
-      document.getElementById("msg").style.display = "block";
-      document.getElementById("moreBtns").style.display = "flex";
+    function showOptions() {
+      document.getElementById('menu').classList.remove('visible');
+      document.getElementById('options').classList.add('visible');
+      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
     }
 
-    // Mengacak posisi emoji animasi
-    function animateEmoji(selector) {
-      const spans = document.querySelectorAll(`${selector} span`);
-      spans.forEach(span => {
-        span.style.left = Math.random() * 100 + 'vw';
-        span.style.animationDuration = (5 + Math.random() * 5) + 's';
-        span.style.fontSize = (16 + Math.random() * 24) + 'px';
-      });
+    function showActivities() {
+      document.getElementById('options').classList.remove('visible');
+      document.getElementById('activities').classList.add('visible');
+      document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
     }
 
-    animateEmoji('.heartRain');
-    animateEmoji('.butterflies');
-    animateEmoji('.sparkles');
+    function backToOptions() {
+      document.getElementById('activities').classList.remove('visible');
+      document.getElementById('options').classList.add('visible');
+      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
+    }
+
+    function backToMenu() {
+      document.getElementById('options').classList.remove('visible');
+      document.getElementById('menu').classList.add('visible');
+      document.getElementById('main-title').innerText = "LISIA SAYANG 💖";
+    }
+
+    function reaction(message) {
+      alert("Yeay! " + message);
+      randomEmojiPop();
+    }
+
+    function randomEmojiPop() {
+      const emojis = ['💖', '💋', '🌸', '🥰', '😘', '💘'];
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const span = document.createElement('span');
+          span.className = 'emoji-pop';
+          span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          span.style.left = Math.random() * 100 + 'vw';
+          span.style.top = Math.random() * 100 + 'vh';
+          document.body.appendChild(span);
+          setTimeout(() => span.remove(), 2000);
+        }, i * 100);
+      }
+    }
+
+    // Optional: kasih emoji pop tiap detik juga biar makin ramai
+    setInterval(randomEmojiPop, 4000);
   </script>
 </body>
 </html>
