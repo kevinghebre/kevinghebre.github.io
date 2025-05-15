@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jual beli musang</title>
+  <title>PROMO TAS</title>
   <style>
     body {
       background-color: #000;
@@ -17,13 +17,14 @@
       justify-content: center;
       min-height: 100vh;
       text-align: center;
+      overflow: hidden;
     }
 
     h1 {
       font-size: 2.5rem;
       margin-bottom: 20px;
       color: #ff69b4;
-      animation: fadeIn 1.5s ease-in-out;
+      animation: fadeSlideIn 1.5s ease-in-out;
     }
 
     button {
@@ -48,7 +49,8 @@
       margin-top: 10px;
       font-size: 1.3rem;
       color: #ffc0cb;
-      animation: fadeIn 1s ease-in-out;
+      animation: fadeSlideIn 1s ease-in-out;
+      display: none;
     }
 
     .hearts {
@@ -61,9 +63,15 @@
       pointer-events: none;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @keyframes pulse {
@@ -115,19 +123,23 @@
   </style>
 </head>
 <body>
-  <h1>Halo selamat pagi sayangku Lisiaaa 💖</h1>
-  <button onclick="showMessage()">Click me 💌</button>
-  <p class="message" id="msg" style="display: none;">
+  <h1 id="title">Halo selamat pagi sayangku 💖</h1>
+  <button onclick="showMessage()" id="pagiBtn">Click me 💌</button>
+  <p class="message" id="msg">
     Hii pacarmu kangen banget lohh... 🥺<br/>
-    Boleh ketemuan gaa? Aku janji nggak gangguin kalau kamu sibuk 😚<br/>
-    Tapi kalo belom bisa ketemu kirim pap yaa... 💕
+    Mau ketemuan nggak? Lagi pengen banget ketemu nih... 😚<br/>
+    Tapi yaa, ga bisa ketemu, kirim PAP yaa... 💕
   </p>
 
   <div class="hearts">💖💗💞💕💘</div>
 
   <script>
     function showMessage() {
-      document.getElementById("msg").style.display = "block";
+      document.getElementById("title").style.display = "none";
+      document.getElementById("pagiBtn").style.display = "none";
+      const msg = document.getElementById("msg");
+      msg.style.display = "block";
+      msg.style.animation = "fadeSlideIn 1s ease-in-out";
     }
   </script>
 </body>
