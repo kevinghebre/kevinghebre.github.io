@@ -40,7 +40,6 @@
       display: flex;
     }
 
-    /* Update tombol agar teks rata kiri, tengah, dan kanan dalam satu tombol */
     button {
       padding: 12px 20px;
       font-size: 1.1rem;
@@ -54,17 +53,33 @@
       user-select: none;
       box-shadow: 0 0 8px #ff69b4;
       min-width: 280px;
+
       display: flex;
-      justify-content: space-between; /* bikin konten kiri dan kanan berjauhan */
       align-items: center;
+      justify-content: center; /* teks dan emoji di tengah secara horizontal */
       gap: 10px;
+      position: relative;
     }
 
-    /* Biar teks yang di dalam tombol rata tengah di bagian tengah */
+    /* Letakkan emoji kiri dan kanan absolute supaya teks di tengah tetap centered */
+    button > span:first-child {
+      position: absolute;
+      left: 15px;
+      flex-shrink: 0;
+    }
+
+    button > span:last-child {
+      position: absolute;
+      right: 15px;
+      flex-shrink: 0;
+    }
+
+    /* Teks di tengah tetap flex-grow agar tidak tergeser */
     button > span.text-center {
       flex-grow: 1;
       text-align: center;
       user-select: none;
+      pointer-events: none; /* agar klik tidak ke emoji */
     }
 
     button:hover {
@@ -137,7 +152,6 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-15px); }
     }
-
   </style>
 </head>
 <body>
@@ -165,34 +179,34 @@
     <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
     <div id="optionsButtons" style="display: flex; flex-direction: column; gap: 15px;">
       <button onclick="reaction('Peluk sampe lemes 🤗')">
-        <span style="flex-shrink: 0;">🍽️</span>
+        <span>🍽️</span>
         <span class="text-center">Pergi makan</span>
-        <span style="flex-shrink: 0;">🤗</span>
+        <span>🤗</span>
       </button>
       <button onclick="reaction('Nonton film romantis 🎥')">
-        <span style="flex-shrink: 0;">🎬</span>
+        <span>🎬</span>
         <span class="text-center">Nonton film aja</span>
-        <span style="flex-shrink: 0;">🎥</span>
+        <span>🎥</span>
       </button>
       <button onclick="reaction('Muter-muter liat ketapang 🌴')">
-        <span style="flex-shrink: 0;">🌴</span>
+        <span>🌴</span>
         <span class="text-center">Ah muter-muter liat ketapang aja deh</span>
-        <span style="flex-shrink: 0;">🌴</span>
+        <span>🌴</span>
       </button>
       <button onclick="reaction('Ayo makan es krim 🍦')">
-        <span style="flex-shrink: 0;">🍦</span>
+        <span>🍦</span>
         <span class="text-center">ehh ayo makan es krim</span>
-        <span style="flex-shrink: 0;">🍦</span>
+        <span>🍦</span>
       </button>
       <button onclick="noMeet()">
-        <span style="flex-shrink: 0;">😤</span>
+        <span>😤</span>
         <span class="text-center">ga jadi ketemu lah lagi BETE</span>
-        <span style="flex-shrink: 0;">😤</span>
+        <span>😤</span>
       </button>
       <button onclick="backToFirstMessage()">
-        <span style="flex-shrink: 0;">🔙</span>
+        <span>🔙</span>
         <span class="text-center">Balik ke pesan sebelumnya</span>
-        <span style="flex-shrink: 0;">🔙</span>
+        <span>🔙</span>
       </button>
     </div>
     <p id="reactionMessage" style="margin-top:20px; font-size:1.2rem; color:#ff69b4; min-height:40px;"></p>
@@ -202,8 +216,8 @@
   <!-- Pesan lucu baru yang muncul setelah klik opsi -->
   <p id="funMessage"></p>
 
-  <!-- Musik pengiring (ganti src dengan file musik kamu) -->
-  <audio autoplay loop>
+  <!-- Musik pengiring (muted supaya autoplay jalan di browser modern) -->
+  <audio autoplay loop muted>
     <source src="music.mp3" type="audio/mpeg" />
     Browsermu tidak mendukung pemutar musik.
   </audio>
@@ -223,7 +237,6 @@
       document.getElementById('noMeetMessage').textContent = '';
       document.getElementById('funMessage').textContent = '';
       document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
-      // Tampilkan tombol opsi jika pernah disembunyikan
       document.getElementById('optionsButtons').style.display = 'flex';
       document.getElementById('optionsButtons').style.flexDirection = 'column';
       document.getElementById('optionsButtons').style.gap = '15px';
@@ -244,79 +257,75 @@
       clearFunMessage();
     }
 
-    // Menampilkan pesan pilihan dan animasi emoji pop
     function reaction(message) {
       const reactionMsg = document.getElementById('reactionMessage');
       const noMeetMsg = document.getElementById('noMeetMessage');
       reactionMsg.textContent = message;
       noMeetMsg.textContent = '';
-      createMultipleEmojiPop(20);
-
-      // Hide options buttons after click
-      document.getElementById('optionsButtons').style.display = 'none';
-
-      // Tampilkan pesan lucu penuh animasi setelah klik opsi
-      showFunMessage();
+      showFunMessage(randomFunMessage());
+      // Bisa ditambah efek emoji pop
+      createEmojiPop();
     }
 
-    // Fungsi untuk tombol "ga jadi ketemu"
     function noMeet() {
       const noMeetMsg = document.getElementById('noMeetMessage');
       const reactionMsg = document.getElementById('reactionMessage');
-      noMeetMsg.textContent = "woi jangan gitulah pacar lagi kangen nih...";
+      noMeetMsg.textContent = "Yahhh, nanti aja yaa, aku sedih nih 😢";
       reactionMsg.textContent = '';
-      createMultipleEmojiPop(25);
-
-      // Hide options buttons after click
-      document.getElementById('optionsButtons').style.display = 'none';
-
-      // Tampilkan pesan lucu penuh animasi setelah klik opsi
-      showFunMessage();
+      showFunMessage(randomSadMessage());
+      createEmojiPop('😢');
     }
 
-    // Fungsi menampilkan pesan lucu dan animasi nonstop ramai
-    function showFunMessage() {
+    function showFunMessage(text) {
       const funMsg = document.getElementById('funMessage');
-      funMsg.textContent = "Yayyy! Senangnya bisa ketemu kamu! 🥳💖🎉🌈 Semoga harimu penuh cinta dan tawa! 😘";
-
-      // Animasi emoji pop super ramai nonstop setiap 400ms
-      if(window.funEmojiInterval) clearInterval(window.funEmojiInterval);
-      window.funEmojiInterval = setInterval(createEmojiPop, 400);
+      funMsg.textContent = text;
     }
 
     function clearFunMessage() {
-      const funMsg = document.getElementById('funMessage');
-      funMsg.textContent = "";
-      if(window.funEmojiInterval) {
-        clearInterval(window.funEmojiInterval);
-        window.funEmojiInterval = null;
-      }
+      document.getElementById('funMessage').textContent = '';
+      document.getElementById('reactionMessage').textContent = '';
+      document.getElementById('noMeetMessage').textContent = '';
     }
 
-    // Membuat emoji pop sekali
-    function createEmojiPop() {
-      const emojis = ["🥳","💖","🎉","🌈","😘","😍","💐","✨","🎈","😻","🦄"];
-      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
-      const span = document.createElement('span');
-      span.className = 'emoji-pop';
-      span.textContent = emoji;
-      // Posisi random di layar
-      span.style.left = Math.random() * window.innerWidth + "px";
-      span.style.top = Math.random() * window.innerHeight + "px";
-      document.body.appendChild(span);
+    function randomFunMessage() {
+      const msgs = [
+        "Yesss! Aku nggak sabar! 🥳",
+        "Wuih seru nih, aku siap ya! 💃",
+        "Janji ya, aku bawa hadiah kecil-kecilan 🎁",
+        "Kamu tuh manis banget, aku bahagia 😍",
+        "Gak sabar deh, mau cepet ketemu kamu 💕"
+      ];
+      return msgs[Math.floor(Math.random() * msgs.length)];
+    }
 
-      // Hapus setelah animasi selesai (2 detik)
+    function randomSadMessage() {
+      const msgs = [
+        "Santuy aja, nanti pasti ketemu kok 💔",
+        "Aku masih sayang kok walau ga ketemu 😞",
+        "Gapapa, kita chat aja terus ya 💬",
+        "Aku tetap tungguin kamu kok 🌧️",
+        "Sabar ya, aku doain yang terbaik buat kita 🤞"
+      ];
+      return msgs[Math.floor(Math.random() * msgs.length)];
+    }
+
+    // Membuat emoji pop yang muncul di posisi random di layar
+    function createEmojiPop(customEmoji) {
+      const emoji = customEmoji || "💖";
+      const pop = document.createElement('div');
+      pop.className = 'emoji-pop';
+      pop.textContent = emoji;
+      const x = Math.random() * (window.innerWidth - 50) + 25;
+      const y = Math.random() * (window.innerHeight - 100) + 50;
+      pop.style.left = x + 'px';
+      pop.style.top = y + 'px';
+
+      document.body.appendChild(pop);
       setTimeout(() => {
-        span.remove();
+        pop.remove();
       }, 2000);
     }
-
-    // Membuat banyak emoji pop sekaligus
-    function createMultipleEmojiPop(count) {
-      for(let i=0; i<count; i++) {
-        setTimeout(createEmojiPop, i * 50);
-      }
-    }
   </script>
+
 </body>
 </html>
