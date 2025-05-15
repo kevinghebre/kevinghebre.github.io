@@ -1,306 +1,513 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>LISIA SAYANG</title>
-  <style>
-    body {
-      background-color: #000;
-      color: #fff;
-      font-family: 'Comic Sans MS', cursive;
-      text-align: center;
-      overflow-x: hidden;
-      margin: 0;
-      padding: 2rem 1rem;
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LISIA SAYANG</title>
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: "Comic Sans MS", cursive;
+        text-align: center;
+        overflow: hidden; /* Ganti dari overflow-x: hidden jadi overflow: hidden */
+        margin: 0;
+        padding: 2rem 1rem;
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
 
-    h1 {
-      font-size: 2.5rem;
-      color: #ff66cc;
-      animation: shake 1s infinite;
-      user-select: none;
-      margin-bottom: 1rem;
-    }
-
-    .section {
-      display: none;
-      margin-top: 30px;
-      flex-direction: column;
-      gap: 15px;
-      align-items: center;
-    }
-
-    .visible {
-      display: flex;
-    }
-
-    button {
-      padding: 12px 20px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 30px;
-      background: #ff69b4;
-      color: white;
-      cursor: pointer;
-      transition: 0.3s;
-      animation: rainbowPulse 3s infinite;
-      user-select: none;
-      box-shadow: 0 0 8px #ff69b4;
-      min-width: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      position: relative;
-    }
-
-    button > span:first-child {
-      position: absolute;
-      left: 15px;
-      flex-shrink: 0;
-    }
-
-    button > span:last-child {
-      position: absolute;
-      right: 15px;
-      flex-shrink: 0;
-    }
-
-    button > span.text-center {
-      flex-grow: 1;
-      text-align: center;
-      user-select: none;
-      pointer-events: none;
-    }
-
-    button:hover {
-      transform: scale(1.1);
-      background: #ff85c1;
-      box-shadow: 0 0 15px #ff85c1;
-    }
-
-    @keyframes shake {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-4px); }
-      50% { transform: translateX(4px); }
-      75% { transform: translateX(-4px); }
-    }
-
-    @keyframes rainbowPulse {
-      0% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
-      25% { background-color: #ffa07a; box-shadow: 0 0 15px #ffa07a; }
-      50% { background-color: #ffb6c1; box-shadow: 0 0 20px #ffb6c1; }
-      75% { background-color: #da70d6; box-shadow: 0 0 15px #da70d6; }
-      100% { background-color: #ff69b4; box-shadow: 0 0 8px #ff69b4; }
-    }
-
-    .emoji-pop {
-      position: fixed;
-      font-size: 2.5rem;
-      animation: popFade 2s ease-out forwards;
-      pointer-events: none;
-      user-select: none;
-      z-index: 9999;
-      filter: drop-shadow(0 0 3px #ff66cc);
-    }
-
-    @keyframes popFade {
-      0% { transform: scale(0); opacity: 1; }
-      100% { transform: scale(3); opacity: 0; }
-    }
-
-    p.message {
-      font-size: 1.2rem;
-      max-width: 350px;
-      margin: 0 auto 15px;
-      line-height: 1.4;
-      user-select: none;
-    }
-
-    @media (max-width: 768px) {
       h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
+        color: #ff66cc;
+        animation: shake 1s infinite;
+        user-select: none;
+        margin-bottom: 1rem;
       }
+
+      .section {
+        display: none;
+        margin-top: 30px;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .visible {
+        display: flex;
+      }
+
       button {
-        min-width: 220px;
-        font-size: 1rem;
-        padding: 10px 15px;
+        padding: 12px 25px;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 30px;
+        background: #ff69b4;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+        animation: rainbowPulse 3s infinite;
+        user-select: none;
+        box-shadow: 0 0 8px #ff69b4;
+        min-width: 180px;
       }
-    }
 
-    #funMessage {
-      font-size: 1.5rem;
-      color: #ff77cc;
-      margin-top: 25px;
-      animation: bounce 1.5s infinite;
-      user-select: none;
-    }
+      button:hover {
+        transform: scale(1.1);
+        background: #ff85c1;
+        box-shadow: 0 0 15px #ff85c1;
+      }
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-  </style>
-</head>
-<body>
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-4px);
+        }
+        50% {
+          transform: translateX(4px);
+        }
+        75% {
+          transform: translateX(-4px);
+        }
+      }
 
-  <h1 id="main-title">LISIA SAYANG 💖</h1>
+      @keyframes rainbowPulse {
+        0% {
+          background-color: #ff69b4;
+          box-shadow: 0 0 8px #ff69b4;
+        }
+        25% {
+          background-color: #ffa07a;
+          box-shadow: 0 0 15px #ffa07a;
+        }
+        50% {
+          background-color: #ffb6c1;
+          box-shadow: 0 0 20px #ffb6c1;
+        }
+        75% {
+          background-color: #da70d6;
+          box-shadow: 0 0 15px #da70d6;
+        }
+        100% {
+          background-color: #ff69b4;
+          box-shadow: 0 0 8px #ff69b4;
+        }
+      }
 
-  <div id="menu" class="section visible">
-    <button onclick="showFirstMessage()">Click me 💌</button>
-  </div>
+      .emoji-pop {
+        position: fixed;
+        font-size: 2.5rem;
+        animation: popFade 2s ease-out forwards;
+        pointer-events: none;
+        z-index: 9999;
+        filter: drop-shadow(0 0 3px #ff66cc);
+      }
 
-  <div id="firstMessage" class="section">
-    <p class="message">
-      Hii pacarmu kangen banget lohh... 🥺<br/>
-      Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk 😚<br/>
-      Tapi yaa, kalo ga bisa kirim pap yah
-    </p>
-    <button onclick="showOptions()">Yaudah yuk ketemuan! 😍</button>
-    <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
-  </div>
+      @keyframes popFade {
+        0% {
+          transform: scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
 
-  <div id="options" class="section">
-    <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
-    <div id="optionsButtons" style="display: flex; flex-direction: column; gap: 15px;">
-      <button onclick="reaction('Peluk sampe lemes 🤗')">
-        <span>🍽️</span>
-        <span class="text-center">Pergi makan</span>
-        <span>🤗</span>
-      </button>
-      <button onclick="reaction('Nonton film romantis 🎥')">
-        <span>🎬</span>
-        <span class="text-center">Nonton film aja</span>
-        <span>🎥</span>
-      </button>
-      <button onclick="reaction('Muter-muter liat ketapang 🌴')">
-        <span>🌴</span>
-        <span class="text-center">Ah muter-muter liat ketapang aja deh</span>
-        <span>🌴</span>
-      </button>
-      <button onclick="reaction('Ayo makan es krim 🍦')">
-        <span>🍦</span>
-        <span class="text-center">ehh ayo makan es krim</span>
-        <span>🍦</span>
-      </button>
-      <button onclick="noMeet()">
-        <span>😤</span>
-        <span class="text-center">ga jadi ketemu lah lagi BETE</span>
-        <span>😤</span>
-      </button>
-      <button onclick="backToFirstMessage()">
-        <span>🔙</span>
-        <span class="text-center">Balik ke pesan sebelumnya</span>
-        <span>🔙</span>
+      p.message {
+        font-size: 1.2rem;
+        max-width: 350px;
+        margin: 0 auto 15px;
+        line-height: 1.4;
+        user-select: none;
+      }
+
+      #funnyMessage {
+        margin-top: 10px;
+        font-size: 1.1rem;
+        color: #ffe066;
+        animation: fadeInUp 0.8s ease-out;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.4;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2rem;
+        }
+        button {
+          min-width: 140px;
+          font-size: 1rem;
+          padding: 10px 20px;
+        }
+        p.message {
+          font-size: 1rem;
+          max-width: 90vw;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="main-title">LISIA SAYANG 💖</h1>
+
+    <div id="menu" class="section visible">
+      <button onclick="showFirstMessage()">Click me 💌</button>
+    </div>
+
+    <div id="firstMessage" class="section">
+      <p class="message">
+        Hii pacarmu kangen banget lohh... 🥺<br />
+        Mau ketemuan nggak? Aku janji nggak gangguin kalau kamu sibuk 😚<br />
+        Tapi yaa, kalo ga bisa kirim pap yah
+      </p>
+      <button onclick="showOptions()">Yaudah yuk ketemuan! 😍</button>
+      <button onclick="showSadPopup()">
+        Ehh ga jadi deh, mau yang lain aja 🙈
       </button>
     </div>
-    <p id="reactionMessage" style="margin-top:20px; font-size:1.2rem; color:#ff69b4; min-height:40px;"></p>
-    <p id="noMeetMessage" style="margin-top:20px; font-size:1.2rem; color:#ff5555; min-height:40px;"></p>
-  </div>
 
-  <p id="funMessage"></p>
+    <div id="options" class="section">
+      <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
 
-  <audio autoplay loop muted>
-    <source src="music.mp3" type="audio/mpeg" />
-    Browsermu tidak mendukung pemutar musik.
-  </audio>
+      <button onclick="reaction('Peluk sampe lemes ya abis itu... 🤗')">
+        Pergi makan 🍽️
+      </button>
+      <button onclick="reaction('Nonton film romantis 🎥')">
+        Nonton film aja 🎬
+      </button>
+      <button onclick="reaction('Muter-muter liat ketapang 🌴')">
+        Ah muter-muter liat ketapang aja deh 🌴
+      </button>
+      <button onclick="reaction('Makan es krim sambil tatap-tatapan manja 🍦')">
+        Pergi makan es krim 🍦
+      </button>
+      <button
+        onclick="reaction('Liburan bareng yuk, yang jauh tapi bareng terus ✈️')"
+      >
+        Pergi liburan bareng yuk ✈️
+      </button>
+      <button onclick="noMeet()">ga jadi ketemu lah lagi BETE 😤</button>
 
-  <script>
-    function showFirstMessage() {
-      document.getElementById('menu').classList.remove('visible');
-      document.getElementById('firstMessage').classList.add('visible');
-      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
-      clearFunMessage();
-    }
+      <p
+        id="reactionMessage"
+        style="
+          margin-top: 20px;
+          font-size: 1.2rem;
+          color: #ff69b4;
+          min-height: 40px;
+        "
+      ></p>
+      <p
+        id="noMeetMessage"
+        style="
+          margin-top: 20px;
+          font-size: 1.2rem;
+          color: #ff5555;
+          min-height: 40px;
+        "
+      ></p>
+    </div>
 
-    function showOptions() {
-      document.getElementById('firstMessage').classList.remove('visible');
-      document.getElementById('options').classList.add('visible');
-      document.getElementById('reactionMessage').textContent = '';
-      document.getElementById('noMeetMessage').textContent = '';
-      document.getElementById('funMessage').textContent = '';
-      document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
-    }
+    <!-- Musik pengiring (ganti src dengan file musik kamu) -->
+    <audio autoplay loop>
+      <source src="music.mp3" type="audio/mpeg" />
+      Browsermu tidak mendukung pemutar musik.
+    </audio>
 
-    function backToMenu() {
-      document.getElementById('firstMessage').classList.remove('visible');
-      document.getElementById('options').classList.remove('visible');
-      document.getElementById('menu').classList.add('visible');
-      document.getElementById('main-title').innerText = "LISIA SAYANG 💖";
-      clearFunMessage();
-    }
+    <script>
+      function showFirstMessage() {
+        document.getElementById("menu").classList.remove("visible");
+        document.getElementById("firstMessage").classList.add("visible");
+        document.getElementById("main-title").innerText = "Aku kangen LISIA 💕";
 
-    function backToFirstMessage() {
-      document.getElementById('options').classList.remove('visible');
-      document.getElementById('firstMessage').classList.add('visible');
-      document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
-      clearFunMessage();
-    }
+        const audio = document.querySelector("audio");
+        if (audio) {
+          audio.play().catch(() => {
+            console.log("Gagal play musik setelah klik user.");
+          });
+        }
+      }
 
-    function reaction(message) {
-      document.getElementById('reactionMessage').textContent = message;
-      document.getElementById('noMeetMessage').textContent = '';
-      showFunMessage(randomFunMessage());
-      createEmojiPop();
-    }
+      function showOptions() {
+        document.getElementById("firstMessage").classList.remove("visible");
+        const options = document.getElementById("options");
+        options.classList.add("visible");
 
-    function noMeet() {
-      document.getElementById('noMeetMessage').textContent = "Yahhh, nanti aja yaa, aku sedih nih 😢";
-      document.getElementById('reactionMessage').textContent = '';
-      showFunMessage(randomSadMessage());
-      createEmojiPop('😢');
-    }
+        // Tambah margin top misalnya 20px
+        options.style.marginTop = "20px";
 
-    function showFunMessage(text) {
-      document.getElementById('funMessage').textContent = text;
-    }
+        document.getElementById("reactionMessage").textContent = "";
+        document.getElementById("noMeetMessage").textContent = "";
+        document.getElementById("main-title").innerText =
+          "Coba pilih nih,, kukasi opsinya... 😘";
 
-    function clearFunMessage() {
-      document.getElementById('funMessage').textContent = '';
-      document.getElementById('reactionMessage').textContent = '';
-      document.getElementById('noMeetMessage').textContent = '';
-    }
+        // Tampilkan kembali tombol dan hapus pesan lucu jika ada
+        document.querySelectorAll("#options button").forEach((btn) => {
+          btn.style.display = "inline-block";
+        });
+        const funnyMsg = document.getElementById("funnyMessage");
+        if (funnyMsg) funnyMsg.remove();
+      }
 
-    function randomFunMessage() {
-      const msgs = [
-        "Yesss! Aku nggak sabar! 🥳",
-        "Wuih seru nih, aku siap ya! 💃",
-        "Janji ya, aku bawa hadiah kecil-kecilan 🎁",
-        "Kamu tuh manis banget, aku bahagia 😍",
-        "Gak sabar deh, mau cepet ketemu kamu 💕"
-      ];
-      return msgs[Math.floor(Math.random() * msgs.length)];
-    }
+      function backToMenu() {
+        document.getElementById("firstMessage").classList.remove("visible");
+        document.getElementById("options").classList.remove("visible");
+        document.getElementById("menu").classList.add("visible");
+        document.getElementById("main-title").innerText = "LISIA SAYANG 💖";
+      }
 
-    function randomSadMessage() {
-      const msgs = [
-        "Santuy aja, nanti pasti ketemu kok 💔",
-        "Aku masih sayang kok walau ga ketemu 😞",
-        "Gapapa, kita chat aja terus ya 💬",
-        "Aku tetap tungguin kamu kok 🌧️",
-        "Sabar ya, aku doain yang terbaik buat kita 🤞"
-      ];
-      return msgs[Math.floor(Math.random() * msgs.length)];
-    }
+      function backToFirstMessage() {
+        document.getElementById("options").classList.remove("visible");
+        document.getElementById("firstMessage").classList.add("visible");
+        document.getElementById("main-title").innerText = "Aku kangen LISIA 💕";
 
-    function createEmojiPop(customEmoji) {
-      const emoji = customEmoji || "💖";
-      const pop = document.createElement('div');
-      pop.className = 'emoji-pop';
-      pop.textContent = emoji;
-      const x = Math.random() * (window.innerWidth - 50);
-      const y = Math.random() * (window.innerHeight - 50);
-      pop.style.left = `${x}px`;
-      pop.style.top = `${y}px`;
-      document.body.appendChild(pop);
-      setTimeout(() => document.body.removeChild(pop), 2000);
-    }
-  </script>
-</body>
+        // Tampilkan kembali tombol dan hapus pesan lucu jika ada
+        document.querySelectorAll("#options button").forEach((btn) => {
+          btn.style.display = "inline-block";
+        });
+        const funnyMsg = document.getElementById("funnyMessage");
+        if (funnyMsg) funnyMsg.remove();
+      }
+
+      function reaction(message) {
+        document.getElementById("reactionMessage").textContent = message;
+        document.getElementById("noMeetMessage").textContent = "";
+
+        // Sembunyikan semua tombol opsi
+        document.querySelectorAll("#options button").forEach((btn) => {
+          btn.style.display = "none";
+        });
+
+        // Tampilkan pesan lucu
+        const funny = document.createElement("p");
+        funny.id = "funnyMessage";
+        funny.innerHTML =
+          "Siap-siap yaa aku udah pake parfum wangi melati~ 🌸🤣";
+        document.getElementById("options").appendChild(funny);
+
+        createMultipleEmojiPop(20);
+      }
+
+      function showSadPopup() {
+        document.getElementById("reactionMessage").textContent = "";
+        document.getElementById("noMeetMessage").textContent = "";
+
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((btn) => (btn.disabled = true));
+
+        const popup = document.createElement("div");
+        popup.textContent = "WOI jangan gitulah lagi kangen nih,,,";
+        popup.style.position = "fixed";
+        popup.style.top = "40%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        // Warna merah semi transparan
+        popup.style.background = "rgba(255, 85, 85, 0.8)";
+        popup.style.color = "#fff";
+        popup.style.padding = "20px 25px";
+        popup.style.borderRadius = "15px";
+        popup.style.fontSize = "1.3rem";
+        popup.style.boxShadow = "0 0 15px rgba(255, 85, 85, 0.9)";
+        popup.style.zIndex = 9999;
+        popup.style.opacity = 0;
+        popup.style.transition = "opacity 0.5s ease";
+
+        document.body.appendChild(popup);
+
+        requestAnimationFrame(() => {
+          popup.style.opacity = 1;
+        });
+
+        setTimeout(() => {
+          popup.textContent = "Ulang ya cantikkuu... 😘💖";
+        }, 2000);
+
+        setTimeout(() => {
+          popup.style.opacity = 0;
+          setTimeout(() => {
+            popup.remove();
+            buttons.forEach((btn) => (btn.disabled = false));
+          }, 500);
+        }, 4000);
+
+        createMultipleEmojiPop(25);
+      }
+
+      function noMeet() {
+        document.getElementById("reactionMessage").textContent = "";
+        document.getElementById("noMeetMessage").textContent = "";
+
+        const buttons = document.querySelectorAll("button");
+        buttons.forEach((btn) => (btn.disabled = true));
+
+        const popup = document.createElement("div");
+        popup.textContent = "WOI jangan gitulah lagi kangen nih,,,";
+        popup.style.position = "fixed";
+        popup.style.top = "40%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        // Warna biru semi transparan
+        popup.style.background = "rgba(70, 130, 180, 0.8)"; // steelblue dengan transparansi
+        popup.style.color = "#fff";
+        popup.style.padding = "20px 25px";
+        popup.style.borderRadius = "15px";
+        popup.style.fontSize = "1.3rem";
+        popup.style.boxShadow = "0 0 15px rgba(70, 130, 180, 0.9)";
+        popup.style.zIndex = 9999;
+        popup.style.opacity = 0;
+        popup.style.transition = "opacity 0.5s ease";
+
+        document.body.appendChild(popup);
+
+        requestAnimationFrame(() => {
+          popup.style.opacity = 1;
+        });
+
+        setTimeout(() => {
+          popup.textContent = "Ulang ya cantikkuu... 😘💖";
+        }, 2000);
+
+        setTimeout(() => {
+          popup.style.opacity = 0;
+          setTimeout(() => {
+            popup.remove();
+            buttons.forEach((btn) => (btn.disabled = false));
+          }, 500);
+        }, 4000);
+
+        createMultipleEmojiPop(25);
+      }
+
+      // Helper functions supaya kode DRY dan rapi:
+      function disableAllButtons(disable) {
+        document.querySelectorAll("button").forEach((btn) => {
+          btn.disabled = disable;
+        });
+      }
+
+      function clearMessages() {
+        document.getElementById("reactionMessage").textContent = "";
+        document.getElementById("noMeetMessage").textContent = "";
+      }
+
+      function createPopup(text) {
+        const popup = document.createElement("div");
+        popup.textContent = text;
+        popup.style.position = "fixed";
+        popup.style.top = "40%";
+        popup.style.left = "50%";
+        popup.style.transform = "translate(-50%, -50%)";
+        popup.style.background = "#ff5555";
+        popup.style.color = "#fff";
+        popup.style.padding = "20px 25px";
+        popup.style.borderRadius = "15px";
+        popup.style.fontSize = "1.3rem";
+        popup.style.boxShadow = "0 0 15px #ff5555";
+        popup.style.zIndex = 9999;
+        popup.style.opacity = 0;
+        popup.style.transition = "opacity 0.5s ease";
+        return popup;
+      }
+
+      function fadeInPopup(popup, callback) {
+        requestAnimationFrame(() => {
+          popup.style.opacity = 1;
+          if (callback) callback();
+        });
+      }
+
+      function fadeOutPopup(popup, callback) {
+        popup.style.opacity = 0;
+        setTimeout(() => {
+          if (callback) callback();
+        }, 500);
+      }
+
+      function createEmojiPop() {
+        const emojis = [
+          "💖",
+          "💋",
+          "🌸",
+          "🥰",
+          "😘",
+          "💘",
+          "💕",
+          "💞",
+          "💐",
+          "🌹",
+          "🎀",
+          "❤️",
+          "😍",
+          "💗",
+          "💓",
+          "💝",
+          "💟",
+          "❣️",
+          "💌",
+          "🌺",
+          "🥀",
+          "💛",
+          "💚",
+          "💜",
+          "🧡",
+          "💑",
+          "👩‍❤️‍👨",
+          "👨‍❤️‍👨",
+          "👩‍❤️‍👩",
+          "💏",
+          "💍",
+          "💎",
+          "🌷",
+          "🌼",
+        ];
+        const span = document.createElement("span");
+        span.className = "emoji-pop";
+        span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        span.style.left = Math.random() * window.innerWidth + "px";
+        span.style.top = Math.random() * window.innerHeight + "px";
+        document.body.appendChild(span);
+        setTimeout(() => span.remove(), 2000);
+      }
+
+      function createMultipleEmojiPop(count) {
+        for (let i = 0; i < count * 100; i++) {
+          setTimeout(createEmojiPop, i * 150);
+        }
+      }
+
+      // Emoji pop otomatis
+      setInterval(createEmojiPop, 50);
+
+      // Auto play musik saat load halaman
+      window.addEventListener("load", () => {
+        const audio = document.querySelector("audio");
+        if (audio) {
+          audio.play().catch(() => {
+            console.log(
+              "Autoplay musik gagal, browser mungkin butuh interaksi pengguna"
+            );
+          });
+        }
+      });
+    </script>
+  </body>
 </html>
