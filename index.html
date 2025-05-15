@@ -14,7 +14,10 @@
       margin: 0;
       padding: 2rem 1rem;
       position: relative;
-      height: 100vh;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     h1 {
@@ -29,7 +32,7 @@
       display: none;
       margin-top: 30px;
       flex-direction: column;
-      gap: 10px;
+      gap: 15px;
       align-items: center;
     }
 
@@ -38,7 +41,7 @@
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 25px;
       font-size: 1.1rem;
       border: none;
       border-radius: 30px;
@@ -49,6 +52,7 @@
       animation: rainbowPulse 3s infinite;
       user-select: none;
       box-shadow: 0 0 8px #ff69b4;
+      min-width: 180px;
     }
 
     button:hover {
@@ -59,9 +63,9 @@
 
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-3px); }
-      50% { transform: translateX(3px); }
-      75% { transform: translateX(-3px); }
+      25% { transform: translateX(-4px); }
+      50% { transform: translateX(4px); }
+      75% { transform: translateX(-4px); }
     }
 
     @keyframes rainbowPulse {
@@ -80,6 +84,7 @@
       user-select: none;
       z-index: 9999;
       filter: drop-shadow(0 0 3px #ff66cc);
+      user-select: none;
     }
 
     @keyframes popFade {
@@ -95,16 +100,34 @@
       user-select: none;
     }
 
+    /* Responsive */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+      button {
+        min-width: 140px;
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      p.message {
+        font-size: 1rem;
+        max-width: 90vw;
+      }
+    }
+
   </style>
 </head>
 <body>
 
   <h1 id="main-title">LISIA SAYANG 💖</h1>
 
+  <!-- Menu awal -->
   <div id="menu" class="section visible">
     <button onclick="showFirstMessage()">Click me 💌</button>
   </div>
 
+  <!-- Pesan kangen -->
   <div id="firstMessage" class="section">
     <p class="message">
       Hii pacarmu kangen banget lohh... 🥺<br/>
@@ -115,17 +138,23 @@
     <button onclick="backToMenu()">Ehh ga jadi deh, mau yang lain aja 🙈</button>
   </div>
 
+  <!-- Pilihan kegiatan -->
   <div id="options" class="section">
     <p class="message">Kalau ketemuan enaknya ngapain ya? 🥰</p>
     <button onclick="reaction('Peluk sampe lemes 🤗')">Pergi makan 🍽️</button>
     <button onclick="reaction('Nonton film romantis 🎥')">Nonton film aja 🎬</button>
     <button onclick="reaction('Muter-muter liat ketapang 🌴')">Ah muter-muter liat ketapang aja deh 🌴</button>
+    <button onclick="noMeet()">ga jadi ketemu lah lagi BETE 😤</button>
     <button onclick="backToFirstMessage()">🔙 Balik ke pesan sebelumnya</button>
+
+    <p id="reactionMessage" style="margin-top:20px; font-size:1.2rem; color:#ff69b4; min-height:40px;"></p>
+    <p id="noMeetMessage" style="margin-top:20px; font-size:1.2rem; color:#ff5555; min-height:40px;"></p>
   </div>
 
+  <!-- Musik pengiring (ganti src dengan file musik kamu) -->
   <audio autoplay loop>
     <source src="music.mp3" type="audio/mpeg" />
-    Musik tidak didukung.
+    Browsermu tidak mendukung pemutar musik.
   </audio>
 
   <script>
@@ -138,11 +167,14 @@
     function showOptions() {
       document.getElementById('firstMessage').classList.remove('visible');
       document.getElementById('options').classList.add('visible');
+      document.getElementById('reactionMessage').textContent = '';
+      document.getElementById('noMeetMessage').textContent = '';
       document.getElementById('main-title').innerText = "Ide kencan romantis 😘";
     }
 
     function backToMenu() {
       document.getElementById('firstMessage').classList.remove('visible');
+      document.getElementById('options').classList.remove('visible');
       document.getElementById('menu').classList.add('visible');
       document.getElementById('main-title').innerText = "LISIA SAYANG 💖";
     }
@@ -153,13 +185,25 @@
       document.getElementById('main-title').innerText = "Aku kangen LISIA 💕";
     }
 
+    // Menampilkan pesan pilihan dan animasi emoji pop
     function reaction(message) {
-      alert("Yeay! " + message);
-      createMultipleEmojiPop(15);
+      const reactionMsg = document.getElementById('reactionMessage');
+      reactionMsg.textContent = message;
+      document.getElementById('noMeetMessage').textContent = '';
+      createMultipleEmojiPop(20);
     }
 
+    // Fungsi untuk tombol "ga jadi ketemu"
+    function noMeet() {
+      const noMeetMsg = document.getElementById('noMeetMessage');
+      noMeetMsg.textContent = "woi jangan gitulah pacar lagi kangen nih...";
+      document.getElementById('reactionMessage').textContent = '';
+      createMultipleEmojiPop(25);
+    }
+
+    // Membuat satu emoji pop muncul di posisi random
     function createEmojiPop() {
-      const emojis = ['💖', '💋', '🌸', '🥰', '😘', '💘', '💕', '💞'];
+      const emojis = ['💖', '💋', '🌸', '🥰', '😘', '💘', '💕', '💞', '💐', '🌹', '🎀'];
       const span = document.createElement('span');
       span.className = 'emoji-pop';
       span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
@@ -169,15 +213,15 @@
       setTimeout(() => span.remove(), 2000);
     }
 
+    // Membuat banyak emoji pop muncul berturut-turut
     function createMultipleEmojiPop(count) {
       for(let i = 0; i < count; i++) {
-        setTimeout(createEmojiPop, i * 100);
+        setTimeout(createEmojiPop, i * 150);
       }
     }
 
-    // Animasi nonstop: emoji muncul terus-menerus tanpa berhenti
-    setInterval(createEmojiPop, 300);
-
+    // Mulai animasi emoji nonstop
+    setInterval(createEmojiPop, 1000);
   </script>
 </body>
 </html>
